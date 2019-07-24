@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  domain: MyString
+  https: false
+  www_subdomain: false
+
+two:
+  domain: MyString
+  https: false
+  www_subdomain: false
