@@ -1,0 +1,7 @@
+.request-panel
+  = form_with url: sites_analysis_path, method: :get, local: true do |f|
+    p
+      = f.label :domain, "Domain:"
+      = f.text_field :domain
+      br
+      = f.submit "Go"
