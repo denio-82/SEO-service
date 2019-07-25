@@ -1,6 +1,6 @@
 class Services::SiteAnalyzer 
   def initialize(domain)
-    @domain = domain
+    @domain = domain.strip.downcase
   end
 
   def call
@@ -20,8 +20,8 @@ class Services::SiteAnalyzer
   private
   
   def site_accessible?
-    res = HTTP.follow.get("http://#{@domain}")
-    res.code == 200 ? true : false
+    @res = HTTP.follow.get("http://#{@domain}")
+    @res.code == 200 ? true : false
   rescue HTTP::ConnectionError, OpenSSL::SSL::SSLError
     false
   end
@@ -34,7 +34,19 @@ class Services::SiteAnalyzer
   end
 
   def check_www_subdomain_attr
+    if @domain =~ /^www\.*/
+      alternative_res = HTTP.follow.get("http://#{@domain.from(4)}")
+    else
+      alternative_res = HTTP.follow.get("http://www.#{@domain}")
+    end
 
+    if @res.body.readpartial == alternative_res.body.readpartial
+      @site.update(www_subdomain: true) 
+    else
+      @site.update(www_subdomain: false)
+    end
+  rescue HTTP::ConnectionError, OpenSSL::SSL::SSLError
+    @site.update(www_subdomain: false)
   end
 
   def check_robots_txt
@@ -43,6 +55,8 @@ class Services::SiteAnalyzer
 
   def check_sitemap
     pages = Services::SitemapAnalyzer.call(@site)
+    return unless pages
+    
     saved_pages = @site.pages.pluck(:url)
 
     new_pages = pages - saved_pages

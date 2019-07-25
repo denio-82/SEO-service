@@ -14,7 +14,7 @@ class Services::SitemapAnalyzer
 
   def sitemap_from_site
     scheme = @site.https? ? "https://" : "http://"
-    url = @site.robots_txt&.find_sitemap_path ? @site.robots_txt.find_sitemap_path : "#{scheme}#{@site.domain}/sitemap.xml"
+    url = @site.try(:robots_txt).try(:find_sitemap_path) ? @site.robots_txt.find_sitemap_path : "#{scheme}#{@site.domain}/sitemap.xml"
     res = HTTP.follow.get(url)
 
     res.code == 200 ? res : nil
