@@ -15,8 +15,11 @@
     h3 Has pages:
 
     table
-      thead
-        tr
+      tbody
+        - @site.pages.each do |page| 
+          tr
+            td= page.url
+            td= link_to "parse page", '#', remote: true
 
 - else
   h4 Site doesn't exists or not accessible at that moment
