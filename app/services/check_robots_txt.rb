@@ -22,7 +22,6 @@ class Services::CheckRobotsTxt
     end
   end
 
-  private  
    
   def response_from_site
     scheme = @site.https? ? "https://" : "http://"
@@ -33,13 +32,13 @@ class Services::CheckRobotsTxt
 
 
   def make_robots_txt
-    @site.create_robots_txt(content: @response.body,
+    @site.create_robots_txt(content: @response.body.readpartial,
                             last_modified: @response['last-modified'])      
   end
     
   def update_robots_txt
     if @response['last-modified'] != @site.robots_txt.last_modified
-      @site.robots_txt.update(content: @response.body,
+      @site.robots_txt.update(content: @response.body.readpartial,
                               last_modified: @response['last-modified'])
     end
   end

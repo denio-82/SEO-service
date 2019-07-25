@@ -1,19 +1,27 @@
-h1=  "Analysis of #{site.domain}"
+- if @site
+  h1=  "Analysis of #{@site.domain}"
 
-p= "has HTTPS - #{site.https?}"
+  p= "has HTTPS - #{@site.https?}"
 
-p= "has WWW subdomain - #{site.www_subdomain?}"
+  p= "has WWW subdomain - #{@site.www_subdomain?}"
 
-.robots_txt
-  h3 robots.txt
-  p= site.robots_txt&.content
+  .robots_txt
+    h3 robots.txt
+    p
+      pre
+        =@site.robots_txt&.content
 
-pages.
-  h3 Has pages:
+  pages.
+    h3 Has pages:
 
-  table
-    thead
-      tr
+    table
+      thead
+        tr
+
+- else
+  h4 Site doesn't exists or not accessible at that moment
+
+p= link_to  "Back to request page", root_path
 
 
 
