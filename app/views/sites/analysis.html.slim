@@ -1,17 +1,24 @@
 - if @site
   h1=  "Analysis of #{@site.domain}"
 
-  p= "has HTTPS - #{@site.https?}"
+  p= "Has HTTPS - #{@site.https?}"
 
-  p= "has WWW subdomain - #{@site.www_subdomain?}"
+  p= "Has WWW subdomain - #{@site.www_subdomain?}"
 
   .robots_txt
-    h3 robots.txt
     p
-      pre
-        =@site.robots_txt&.content
+      = link_to 'show robots.txt', '#', remote: true, class: 'show-robots'
 
-  pages.
+    .robots_file.hidden
+      p
+        = link_to 'hide robots.txt', '#', remote: true, class: 'hide-robots'
+        br
+        pre
+          =@site.robots_txt&.content
+        br
+        = link_to 'hide robots.txt', '#', remote: true, class: 'hide-robots'
+
+  .pages
     h3 Has pages:
 
     table

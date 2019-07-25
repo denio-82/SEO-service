@@ -48,7 +48,7 @@ class Services::SiteAnalyzer
     new_pages = pages - saved_pages
     removed_pages = saved_pages - pages
 
-    @site.pages.where(url: removed_pages).destroy_all
-    @site.pages.create(new_pages.collect { |i| { url: i } })
+    @site.pages.where(url: removed_pages).destroy_all if removed_pages.any?
+    @site.pages.create(new_pages.collect { |i| { url: i } }) if new_pages.any?
   end
 end
