@@ -26,7 +26,10 @@
         - @site.pages.each do |page| 
           tr
             td= page.url
-            td= link_to "parse page", '#', remote: true
+            td= link_to "go to page", page.url
+            td= link_to "parse page", page_path(page), remote: true, data: { type: :json }
+  
+  .parsed_page
 
 - else
   h4 Site doesn't exists or not accessible at that moment

@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class Services::PageParser
   def initialize(page)
     @page = page

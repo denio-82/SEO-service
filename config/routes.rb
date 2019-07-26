@@ -3,4 +3,6 @@ Rails.application.routes.draw do
 
   get 'sites/request_form'
   get 'sites/analysis'
+
+  resources :pages, only: :show
 end
