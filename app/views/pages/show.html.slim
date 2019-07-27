@@ -1,0 +1,52 @@
+h1 Parsed page
+
+.page-info
+  p
+    strong
+      | site: #{@page.site.domain}
+      br
+      |  url: #{@page.url}
+
+.parsed-info
+  .meta-info
+    h2 meta info
+
+    table
+      thead
+        tr
+          th element
+          th content
+      tbody
+        tr
+          td title:
+          td= @parsed_page[:title]
+        tr
+          td charset:
+          td= @parsed_page[:charset]
+        -@parsed_page[:meta_tags].each do |mt|
+          tr
+            td= mt.first
+            td= mt.last
+  
+  .html-tags-info
+    h2 html tags info
+    
+    p
+      strong headers
+    table
+      -@parsed_page[:headers].each do |h_type, values|
+        -values.each do |header|
+          tr
+            td= h_type
+            td= header
+    
+    p 
+      strong links:
+    table
+      -@parsed_page[:links].each do |l|
+        tr
+          td= l[:text]
+          td= l[:href]
+          td= link_to "go", l[:href], target: '_blank'
+        
+      

@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def show
     @page = Page.find(params[:id])
-    render json: Services::PageParser.new(@page).call
+    @parsed_page = Services::PageParser.new(@page).call
   end
 end
