@@ -1,6 +1,6 @@
 class Services::SiteAnalyzer 
   def initialize(domain)
-    @domain = domain.strip.downcase
+    @domain = clearing(domain)
   end
 
   def call
@@ -18,6 +18,10 @@ class Services::SiteAnalyzer
   end
 
   private
+
+  def clearing(domain)
+    domain.strip.downcase.split("//").last.split("/").first
+  end
   
   def site_accessible?
     @res = HTTP.follow.get("http://#{@domain}")
