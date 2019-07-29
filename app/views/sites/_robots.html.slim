@@ -1,0 +1,21 @@
+.robots_txt
+  button type="button" class="btn btn-info m-3" data-toggle="modal" data-target="#robotsFile"
+    | show robots.txt
+
+
+  div class='modal fade' id="robotsFile" tabindex="-1" role="dialog" aria-labelledby="robotsFileLabel" aria-hidden="true"
+    .modal-dialog role="document"
+      .modal-content
+        .modal-header
+          h5.modal-title id="robotsFileLabel" robots.txt
+          button.close type="button" data-dismiss="modal" aria-label="Close"
+            span aria-hidden="true" &times;
+
+        .modal-body
+          .card
+            .card-body
+              pre= @site.robots_txt&.content
+
+        .modal-footer
+          button type="button" class="btn btn-secondary" data-dismiss="modal" Close
+

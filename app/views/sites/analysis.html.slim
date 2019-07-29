@@ -2,47 +2,27 @@
   .card
     .card-body
       h1.card-title=  "Analysis of #{@site.domain}"
+      ul.list-group
+        -if @site.https?
+          li.list-group-item = "Has HTTPS"
+        -else 
+          li.list-group-item = "Has NOT HTTPS"
+        -if @site.www_subdomain?
+          li.list-group-item = "Has WWW subdomain"
+        -else
+          li.list-group-item = "Has NOT WWW subdomain"
 
-      p= "Has HTTPS - #{@site.https?}"
-
-      p= "Has WWW subdomain - #{@site.www_subdomain?}"
-
-      .robots_txt
-        p
-          = link_to 'show robots.txt', '#', remote: true, class: 'show-robots btn btn-info', role: 'button'
-
-        .robots_file.hidden
-          p
-            = link_to 'hide robots.txt', '#', remote: true, class: 'hide-robots btn btn-info', role: 'button'
-            br
-            .card
-              .card-body
-                h3.card-title robots.txt
-                pre= @site.robots_txt&.content
-            
-            = link_to 'hide robots.txt', '#', remote: true, class: 'hide-robots btn btn-info', role: 'button'
-
-      .pages
-        h3.card-subtitle Has pages (total: #{@site.pages.count}):
-
-        table
-          tbody
-            - @site.pages.each do |page| 
-              tr
-                td= page.url
-                td
-                  div.btn-group role="group" aria-label="page-btn-group"
-                    = link_to "go to page", page.url, target: '_blank',  class: 'btn btn-primary', role: 'button'
-                    =link_to "parse page", page_path(page), target: '_blank', class: 'btn btn-danger', role: 'button'
-      p= link_to  "Back to request page", root_path, class: 'btn btn-info', role: 'button'
-
+      = render 'robots'
+      = render 'pages'
+      
+      p= link_to  "Back to request page", root_path, class: 'card-link', role: 'button'
 
 - else
   .card
-    card-body
-    h4.card-title Site doesn't exists or not accessible at that moment
+    .card-body
+      h4.card-title Site doesn't exists or not accessible at that moment
 
-    p= link_to  "Back to request page", root_path, class: 'btn btn-info', role: 'button'
+    p= link_to  "Back to request page", root_path, class: 'card-link', role: 'button'
 
 
 

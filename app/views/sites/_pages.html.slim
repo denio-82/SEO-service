@@ -1,0 +1,15 @@
+.pages
+  h3.card-subtitle Has #{@site.pages.count} pages
+  p
+    = link_to 'show pages', '#', remote: true, class: 'show-pages btn btn-info m-3', role: 'button'
+    = link_to 'hide pages', '#', remote: true, class: 'hide-pages btn btn-info hidden m-3', role: 'button'  
+  table.hidden.pages-table.table.table-striped.table-hover
+    tbody
+      - @site.pages.each do |page| 
+        tr
+          td= page.url
+          td
+            .btn-group role="group" aria-label="page-btn-group"
+              = link_to "go to the page", page.url, target: '_blank',  class: 'btn btn-primary', role: 'button'
+              = link_to "parse the page", page_path(page), target: '_blank', class: 'btn btn-danger', role: 'button'
+  p= link_to 'hide pages', '#', remote: true, class: 'hide-pages btn btn-info hidden m-3', role: 'button'
