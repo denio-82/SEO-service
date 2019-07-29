@@ -6,7 +6,7 @@ class Services::SiteAnalyzer
   def call
     return unless site_accessible?
 
-    @site = Site.find_or_create_by(domain: @domain)
+    @site = Site.find_or_create_by!(domain: @domain)
     return unless @site
 
     check_https_attr
