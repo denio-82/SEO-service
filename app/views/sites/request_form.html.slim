@@ -2,6 +2,6 @@
   = form_with url: sites_analysis_path, method: :get, local: true do |f|
     p
       = f.label :domain, "Domain:"
-      = f.text_field :domain
-      br
-      = f.submit "Go"
+      .input-group
+        = f.text_field :domain, placeholder: 'enter domain name', class: 'form-control'
+        = f.submit "Go", class: 'btn btn-success', role: 'button'

@@ -1,38 +1,48 @@
 - if @site
-  h1=  "Analysis of #{@site.domain}"
+  .card
+    .card-body
+      h1.card-title=  "Analysis of #{@site.domain}"
 
-  p= "Has HTTPS - #{@site.https?}"
+      p= "Has HTTPS - #{@site.https?}"
 
-  p= "Has WWW subdomain - #{@site.www_subdomain?}"
+      p= "Has WWW subdomain - #{@site.www_subdomain?}"
 
-  .robots_txt
-    p
-      = link_to 'show robots.txt', '#', remote: true, class: 'show-robots'
+      .robots_txt
+        p
+          = link_to 'show robots.txt', '#', remote: true, class: 'show-robots btn btn-info', role: 'button'
 
-    .robots_file.hidden
-      p
-        = link_to 'hide robots.txt', '#', remote: true, class: 'hide-robots'
-        br
-        pre
-          =@site.robots_txt&.content
-        br
-        = link_to 'hide robots.txt', '#', remote: true, class: 'hide-robots'
+        .robots_file.hidden
+          p
+            = link_to 'hide robots.txt', '#', remote: true, class: 'hide-robots btn btn-info', role: 'button'
+            br
+            .card
+              .card-body
+                h3.card-title robots.txt
+                pre= @site.robots_txt&.content
+            
+            = link_to 'hide robots.txt', '#', remote: true, class: 'hide-robots btn btn-info', role: 'button'
 
-  .pages
-    h3 Has pages (total: #{@site.pages.count}):
+      .pages
+        h3.card-subtitle Has pages (total: #{@site.pages.count}):
 
-    table
-      tbody
-        - @site.pages.each do |page| 
-          tr
-            td= page.url
-            td= link_to "go to page", page.url, target: '_blank'
-            td= link_to "parse page", page_path(page), target: '_blank'
+        table
+          tbody
+            - @site.pages.each do |page| 
+              tr
+                td= page.url
+                td
+                  div.btn-group role="group" aria-label="page-btn-group"
+                    = link_to "go to page", page.url, target: '_blank',  class: 'btn btn-primary', role: 'button'
+                    =link_to "parse page", page_path(page), target: '_blank', class: 'btn btn-danger', role: 'button'
+      p= link_to  "Back to request page", root_path, class: 'btn btn-info', role: 'button'
+
 
 - else
-  h4 Site doesn't exists or not accessible at that moment
+  .card
+    card-body
+    h4.card-title Site doesn't exists or not accessible at that moment
 
-p= link_to  "Back to request page", root_path
+    p= link_to  "Back to request page", root_path, class: 'btn btn-info', role: 'button'
 
 
 
