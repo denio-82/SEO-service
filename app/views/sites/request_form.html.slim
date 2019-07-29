@@ -1,7 +1,8 @@
 .request-panel
   = form_with url: sites_analysis_path, method: :get, local: true do |f|
     p
-      = f.label :domain, "Domain:"
       .input-group
+        .input-group-prepend
+          span.input-group-text id="inputGroup-sizing-default" domain:
         = f.text_field :domain, placeholder: 'enter domain name', class: 'form-control'
         = f.submit "Go", class: 'btn btn-success', role: 'button'

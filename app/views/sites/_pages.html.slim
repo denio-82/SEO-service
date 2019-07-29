@@ -7,7 +7,8 @@
     tbody
       - @site.pages.each do |page| 
         tr
-          td= page.url
+          td style="word-break:break-all;"
+            = page.url
           td
             .btn-group role="group" aria-label="page-btn-group"
               = link_to "go to the page", page.url, target: '_blank',  class: 'btn btn-primary', role: 'button'
