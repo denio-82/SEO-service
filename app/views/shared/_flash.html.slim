@@ -1,3 +1,6 @@
-- flash.each do |key, message|
-  div class="alert alert-#{ alert_type(key)} mt-3" role="alert"
-    = content_tag :p, message.html_safe, class: "flash #{key}"
+- if notice   
+  p.notice.alert-success.m-3
+    = notice
+- if alert
+  p.alert.alert-danger.m-3
+    = alert
