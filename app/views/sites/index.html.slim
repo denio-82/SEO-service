@@ -1,3 +1,6 @@
+.pagination.m-3
+  = will_paginate @sites
+
 table.table.table-striped
   thead
     tr 
@@ -17,3 +20,11 @@ table.table.table-striped
         .btn-group role="group" aria-label="page-btn-group"
           = link_to "analysis", analysis_sites_path(params: {domain: site.domain}), class: 'btn btn-primary', role: 'button'
           = link_to "destroy", site_path(site), method: :delete, class: 'btn btn-danger', role: 'button'
+
+.pagination.m-3
+  = will_paginate @sites
+p
+  = form_with url: sites_path, method: :get,local: true do |f|
+    =f.label :per_page, "Sites per page: "
+    =f.number_field :per_page, value: '20', max: 100, min: 20, step: 10
+    =f.submit "show"

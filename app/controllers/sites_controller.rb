@@ -8,7 +8,7 @@ class SitesController < ApplicationController
   def request_form; end
 
   def index
-    @sites = Site.all
+    @sites = Site.paginate(page: params[:page], per_page: params[:per_page]).order('created_at DESC')
   end
 
   def destroy
