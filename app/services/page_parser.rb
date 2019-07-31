@@ -28,11 +28,22 @@ class Services::PageParser
                               end
     @parsed_page[:links] = parse_a_tag
     @parsed_page[:lists] = parse_lists
+    @parsed_page[:tables] = parse_tables
   end
 
   def parse_a_tag
     @content.css('a').each.with_object([]) do |link, arr|
-      arr << { text: link.text, href: link.attributes['href'].try(:value) } if link.name = 'a'
+      
+      arr << { text: link.text, href: set_valid_url(link) }
+    end
+  end
+
+  def set_valid_url(link)
+    return link.attributes['href'].value if link.attributes['href'] =~ URI.regexp
+    
+    if link.attributes['href']
+      scheme = @page.site.https? ? "https://" : "http://"
+      scheme + @page.site.domain + link.attributes['href'].try(:value)
     end
   end
 
@@ -45,5 +56,13 @@ class Services::PageParser
                                           arr << list.at_css('li').text
                                         end
     end
+  end
+
+  def parse_tables
+    tables = @content.css("table")
+    samples = tables.each.with_object([]) do |table, arr|
+                arr << table.at_css("tr")
+              end
+    { counter: tables.count, samples: samples }
   end
 end

@@ -75,5 +75,15 @@ h1 Parsed page
               p= sample
     hr
 
-        
+    .tables
+      .card
+        h4.card-header Page has #{@parsed_page[:tables][:counter]} tables
+        .card-body 
+          p
+            strong samples:
+          
+          -if @parsed_page[:tables][:samples]
+            -@parsed_page[:tables][:samples].each do |sample|
+              table
+                | #{{sample}}
       

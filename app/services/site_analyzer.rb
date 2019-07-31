@@ -60,6 +60,7 @@ class Services::SiteAnalyzer
   def check_sitemap
     pages = Services::SitemapAnalyzer.call(@site)
     return unless pages
+    pages.reject { |i| i.blank? }
     
     saved_pages = @site.pages.pluck(:url)
 
@@ -67,6 +68,6 @@ class Services::SiteAnalyzer
     removed_pages = saved_pages - pages
 
     @site.pages.where(url: removed_pages).destroy_all if removed_pages.any?
-    @site.pages.create(new_pages.collect { |i| { url: i } }) if new_pages.any?
+    @site.pages.create!(new_pages.collect { |i| { url: i } }) if new_pages.any?
   end
 end
