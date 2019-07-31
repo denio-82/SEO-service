@@ -26,5 +26,5 @@ table.table.table-striped
 p
   = form_with url: sites_path, method: :get,local: true do |f|
     =f.label :per_page, "Sites per page: "
-    =f.number_field :per_page, value: '20', max: 100, min: 20, step: 10
+    =f.number_field :per_page, value: '30', max: 100, min: 20, step: 10
     =f.submit "show"
