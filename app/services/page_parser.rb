@@ -27,11 +27,23 @@ class Services::PageParser
                                 hash[header] = @content.css(header).map(&:content)
                               end
     @parsed_page[:links] = parse_a_tag
+    @parsed_page[:lists] = parse_lists
   end
 
   def parse_a_tag
     @content.css('a').each.with_object([]) do |link, arr|
       arr << { text: link.text, href: link.attributes['href'].try(:value) } if link.name = 'a'
+    end
+  end
+
+  def parse_lists
+    [:ul, :ol].each.with_object({}) do |tag, hash|
+      lists = @content.css("#{tag}")
+      hash["#{tag}".to_sym] = {}
+      hash["#{tag}".to_sym][:counter] = lists.count
+      hash["#{tag}".to_sym][:samples] = lists.each.with_object([]) do |list, arr|
+                                          arr << list.at_css('li').text
+                                        end
     end
   end
 end

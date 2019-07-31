@@ -11,7 +11,7 @@ h1 Parsed page
   .meta-info
     h2 meta info
 
-    table
+    table.table.table-striped
       thead
         tr
           th element
@@ -31,22 +31,49 @@ h1 Parsed page
   .html-tags-info
     h2 html tags info
     
-    p
-      strong headers
-    table
-      -@parsed_page[:headers].each do |h_type, values|
-        -values.each do |header|
-          tr
-            td= h_type
-            td= header
+    .headers
+      h3 Headers
+      table.table.table-striped
+        -@parsed_page[:headers].each do |h_type, values|
+          -values.each do |header|
+            tr
+              td= h_type
+              td= header
+      hr
     
-    p 
-      strong links:
-    table
-      -@parsed_page[:links].each do |l|
-        tr
-          td= l[:text]
-          td= l[:href]
-          td= link_to "go", l[:href], target: '_blank'
+    .links
+      h3 Links
+
+      table.table.table-striped
+        -@parsed_page[:links].each do |l|
+          tr
+            td= l[:text]
+            td= l[:href]
+            td= link_to "go", l[:href], target: '_blank'
+      hr
+    
+    .lists
+      h3 Lists:
+      
+      .card
+        h4.card-header Page has #{@parsed_page[:lists][:ul][:counter]} unordered lists
+        .card-body
+          p
+            strong samples:
+          -if @parsed_page[:lists][:ul][:samples]
+            -@parsed_page[:lists][:ul][:samples].each do |sample|
+              p= sample
+      
+    
+      .card
+        h4.card-header Page has #{@parsed_page[:lists][:ol][:counter]} ordered lists
+        .card-body
+          p
+            strong samples:
+          -if @parsed_page[:lists][:ol][:samples]
+            -@parsed_page[:lists][:ol][:samples].each do |sample|
+              p= sample
+    hr
+
         
       
