@@ -41,11 +41,12 @@ gem 'jquery-rails'
 gem 'bootstrap', '~> 4.3.1'
 gem 'will_paginate', '~> 3.1.0'
 gem 'devise'
+gem 'nokogiri'
+gem 'unicorn'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'nokogiri'
 end
 
 group :development do
@@ -55,6 +56,11 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'capistrano', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano3-unicorn', require: false
 end
 
 group :test do
