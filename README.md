@@ -1,16 +1,11 @@
 # README
 
-This application is the simple site parser. 
-
-It takes url or domain name and checks presence of:
- - 'www' subdomain,
- - https connection.
-
-It checks presence of file - robots.txt, and searches for 'sitemap.xml' url in it .
-
-It analyzes the site and displays a list of existing pages. 
-
-It parses individual pages and provides information from meta tags and lists of titles, links, tables, lists.
+This SEO service allows you to give url to a website or domain name to get information: 
+- the presence of a subdomain WWW, 
+- the possibility of https connections, 
+- the contents of the robots file.txt, 
+- a list of pages created when parsing a sitemap file.xml,
+- content specific pages (meta tags, lists, headings, links, tables, lists).
 
 * Ruby version 2.6.0
 * Ruby on Rails version 5.2.3
