@@ -1,24 +1,21 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application is the simple site parser. 
 
-Things you may want to cover:
+It takes url or domain name and checks presence of:
+ - 'www' subdomain,
+ - https connection.
 
-* Ruby version
+It checks presence of file - robots.txt, and searches for 'sitemap.xml' url in it .
 
-* System dependencies
+It analyzes the site and displays a list of existing pages. 
 
-* Configuration
+It parses individual pages and provides information from meta tags and lists of titles, links, tables, lists.
 
-* Database creation
+* Ruby version 2.6.0
+* Ruby on Rails version 5.2.3
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Used gems:
+- Devise (admin authentication);
+- Bootstrap (UI);
+- Nokogiri (sitemap and html parsing).
